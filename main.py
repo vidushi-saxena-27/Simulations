@@ -12,7 +12,7 @@ BOWL_RADIUS = 300
 
 # Start with 1 ball, then 2. Many at once is the bonus.
 NUM_PARTICLES = 3
-PARTICLE_RADIUS = 20
+PARTICLE_RADIUS = 12
 PARTICLE_SPEED = 150.0
 
 # Pixels per second squared, not m/s^2. Note that +y points DOWN on screen.
@@ -20,7 +20,7 @@ GRAVITY = 900.0
 
 # How much speed survives a bounce. 1.0 loses nothing, below 1.0 is weaker.
 WALL_RESTITUTION = 1.0
-RESTITUTION = 0
+RESTITUTION = 1.0
 
 FPS = 60
 
@@ -164,9 +164,8 @@ while running:
                 # they're already separating, so leave them alone.
                 v_rel = np.dot(velocities[i] - velocities[j], normal)
 
-                if v_rel < 0:
-                    velocities[i] -=  0.5 * (1 + RESTITUTION)* v_rel * normal
-                    velocities[j] +=  0.5 * (1 + RESTITUTION)* v_rel * normal
+                velocities[i] -=  0.5 * (1 + RESTITUTION)* v_rel * normal
+                velocities[j] +=  0.5 * (1 + RESTITUTION)* v_rel * normal
 
     ###########################################################################
     #                            END OF YOUR CODE                             #
@@ -178,7 +177,7 @@ while running:
 
     pygame.draw.circle(
         screen,
-        (180, 180, 180),
+        (180, 0, 180),
         BOWL_CENTER.astype(int),
         BOWL_RADIUS,
         width=3
@@ -187,7 +186,7 @@ while running:
     for position in positions:
         pygame.draw.circle(
             screen,
-            (220, 220, 220),
+            (0, 220, 220),
             position.astype(int),
             PARTICLE_RADIUS
         )
